@@ -259,7 +259,7 @@ onMounted(() => {
 
 .app {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #668eea, #764ba2);
   font-family: 'Poppins', sans-serif;
   position: relative;
   overflow: hidden;
