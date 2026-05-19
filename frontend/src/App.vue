@@ -124,7 +124,7 @@ onMounted(() => {
       <header class="header">
 
         <div>
-          <h1>📝 Notes App</h1>
+          <h1>📝 Notes Apps SI-A</h1>
           <p>Kelola catatanmu dengan mudah dan modern</p>
         </div>
 
