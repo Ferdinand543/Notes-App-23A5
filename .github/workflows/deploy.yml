@@ -8,11 +8,10 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to VPS
     runs-on: ubuntu-latest
 
     steps:
-      - name: Connect & Deploy
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -21,43 +20,18 @@ jobs:
           port: 22
 
           script: |
-            echo "🚀 STARTING DEPLOYMENT..."
+            echo "🚀 START DEPLOY"
 
-            # =========================
-            # MASUK KE PROJECT
-            # =========================
             cd /var/www/Notes-App-23A5 || exit
 
-            echo "📥 PULL LATEST CODE..."
-            git pull origin main
+            echo "📥 PULL LATEST CODE"
+            git pull origin main || git pull origin master
 
-            # =========================
-            # BACKEND
-            # =========================
-            echo "📦 INSTALL BACKEND..."
-            cd backend || exit
+            echo "🐳 BUILD & RUN DOCKER"
+            docker compose down
+            docker compose up -d --build
 
-            npm ci
+            echo "🧹 CLEAN UNUSED IMAGE"
+            docker image prune -f
 
-            echo "♻️ RESTART BACKEND..."
-            pm2 restart notes-api || pm2 start index.js --name notes-api
-
-            pm2 save
-
-            # =========================
-            # FRONTEND
-            # =========================
-            echo "🎨 BUILD FRONTEND..."
-            cd ../frontend || exit
-
-            npm ci
-
-            npm run build
-
-            # =========================
-            # NGINX
-            # =========================
-            echo "🔁 RESTART NGINX..."
-            sudo systemctl restart nginx
-
-            echo "✅ DEPLOY SUCCESS!"
+            echo "✅ DEPLOY DONE"
