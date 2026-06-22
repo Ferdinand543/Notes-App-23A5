@@ -2,7 +2,7 @@
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 
-const API = 'http://localhost:5000/api/notes'
+const API = '/api/notes'
 
 const notes = ref([])
 const title = ref('')
@@ -124,7 +124,7 @@ onMounted(() => {
       <header class="header">
 
         <div>
-          <h1>📝 Notes App</h1>
+          <h1>📝 Notes Apps SI-A</h1>
           <p>Kelola catatanmu dengan mudah dan modern</p>
         </div>
 
@@ -259,7 +259,7 @@ onMounted(() => {
 
 .app {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #668eea, #764ba2);
   font-family: 'Poppins', sans-serif;
   position: relative;
   overflow: hidden;
