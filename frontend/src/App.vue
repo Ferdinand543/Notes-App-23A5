@@ -2,7 +2,7 @@
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 
-const API = 'http://localhost:5000/api/notes'
+const API = '/api/notes'
 
 const notes = ref([])
 const title = ref('')

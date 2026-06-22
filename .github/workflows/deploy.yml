@@ -17,26 +17,18 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            echo "🚀 Starting deployment..."
+            echo "🚀 START DEPLOY"
 
             cd /var/www/Notes-App-23A5
 
-            echo "📥 Pulling latest code..."
+            echo "📥 Pull latest code"
             git pull origin main
 
-            echo "📦 Installing backend..."
-            cd backend
-            npm install
+            echo "🐳 Rebuild Docker containers"
+            docker compose down
+            docker compose up -d --build
 
-            echo "♻️ Restart backend..."
-            pm2 restart notes-api || pm2 start index.js --name notes-api
+            echo "🧹 Clean unused images"
+            docker image prune -f
 
-            echo "🎨 Build frontend..."
-            cd ../frontend
-            npm install
-            npm run build
-
-            echo "🔁 Restart Nginx..."
-            systemctl restart nginx
-
-            echo "✅ Deploy finished!"
+            echo "✅ DEPLOY DONE"
